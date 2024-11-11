@@ -1,7 +1,6 @@
 package com.example.reversi.moves;
 
 import com.example.reversi.Player;
-import com.example.reversi.Test;
 import com.example.reversi.talesFactory.Tales;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class CaptureChips implements Moves{
                 }
             }
         }
-        Test.notNull(listOfChanges, "List of changes in " + c + "-" + r + " is null; (CaptureChips Class)");
         return listOfChanges;
     }
 

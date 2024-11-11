@@ -143,7 +143,6 @@ public class MainWindow implements Initializable {
             for (int j=0; j<grid; j++){
                 String buttonId = "#" + ((char) ((int) i+65)) + (j+1) + "_BUTTON";
                 Button button = (Button) root.lookup(buttonId);
-                Test.notNull(button, "Button " + buttonId + " in RestartGame is null; (MainWindow)");
                 tales[i][j] = whiteTalesFactory.newTale(button, i, j);
             }
         }

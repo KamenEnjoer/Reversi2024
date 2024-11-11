@@ -1,14 +1,11 @@
 package com.example.reversi.moves;
 
 import com.example.reversi.Player;
-import com.example.reversi.Test;
 import com.example.reversi.talesFactory.Tales;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static java.util.Collections.addAll;
 
 public class PossibleMoves implements Moves{
 
@@ -36,8 +33,6 @@ public class PossibleMoves implements Moves{
     public List<List<Integer>> canMove(int c, int r, int i, int j, Tales[][] tales, int grid){
         Player currentPlayer = Player.getPlayer();
         List<List <Integer>> chipCanBePlaced = new ArrayList<>();
-        Test.outOfBounds(r, 0, grid, "(PossibleMoves);");
-        Test.outOfBounds(c, 0, grid, "(PossibleMoves);");
 
         if ((r+j >= 0 && c+i >= 0 && r+j <= grid && c+i <= grid) && Objects.equals(tales[c][r].getColor(), currentPlayer.getEnemyColor())) {
             return canMove(c+i, r+j, i, j, tales, grid);
