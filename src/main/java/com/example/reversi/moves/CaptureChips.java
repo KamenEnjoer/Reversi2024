@@ -27,17 +27,17 @@ public class CaptureChips implements Moves {
 
     /* Code smell: High cyclomatic complexity */
     @Override
-    public List<List<Integer>> canMove(int column, int row, int i, int j, Tales[][] tales, int grid) {
+    public List<List<Integer>> canMove(int column, int row, int directionColumn, int directionRow, Tales[][] tales, int grid) {
         Player currentPlayer = Player.getPlayer();
         String currentPlayerColor = currentPlayer.getColor().toString().toLowerCase();
         String enemyPlayerColor = currentPlayer.getEnemyColor().toString().toLowerCase();
         List<List<Integer>> listOfChanges = new ArrayList<>();
-        if ((row + j >= 0 && column + i >= 0 && row + j <= grid && column + i <= grid) && Objects.equals(tales[column][row].getColor(), enemyPlayerColor)) {
-            listOfChanges = canMove(column + i, row + j, i, j, tales, grid);
+        if (outOfBounds(row, column, directionColumn, directionRow, grid) && Objects.equals(tales[column][row].getColor(), enemyPlayerColor)) {
+            listOfChanges = canMove(column + directionColumn, row + directionRow, directionColumn, directionRow, tales, grid);
             if (listOfChanges != null)
                 listOfChanges.add(List.of(column, row));
             return listOfChanges;
-        } else if (Objects.equals(tales[column][row].getColor(), currentPlayerColor) && Objects.equals(tales[column - i][row - j].getColor(), enemyPlayerColor)) {
+        } else if (Objects.equals(tales[column][row].getColor(), currentPlayerColor) && Objects.equals(tales[column - directionColumn][row - directionRow].getColor(), enemyPlayerColor)) {
             return listOfChanges;
         }
 
