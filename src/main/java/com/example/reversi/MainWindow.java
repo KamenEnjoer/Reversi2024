@@ -32,6 +32,8 @@ public class MainWindow implements Initializable {
     public Text redTurn;
     public Text greenTurn;
     public AnchorPane root;
+
+    /* Code smell: Remove redundant button declarations */
     private GridPane buttonGrid = new GridPane();
 
     Tales[][] tales = new Tales[grid][grid];
@@ -58,7 +60,6 @@ public class MainWindow implements Initializable {
             }
         }
 
-        // Размещаем сетку в корневом AnchorPane
         root.getChildren().add(buttonGrid);
         AnchorPane.setTopAnchor(buttonGrid, 60.0);
         AnchorPane.setLeftAnchor(buttonGrid, 115.0);
