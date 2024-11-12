@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -22,30 +23,17 @@ import java.util.ResourceBundle;
 
 public class MainWindow implements Initializable {
     final int grid = 8;
+    final int buttonSize = 50;  // Размер кнопки, можно изменить по необходимости
+    final int spacing = 4;      // Расстояние между кнопками
+
     @FXML
-    public Button A1_BUTTON, A2_BUTTON, A3_BUTTON, A4_BUTTON, A5_BUTTON, A6_BUTTON, A7_BUTTON, A8_BUTTON;
-    @FXML
-    public Button B1_BUTTON, B2_BUTTON, B3_BUTTON, B4_BUTTON, B5_BUTTON, B6_BUTTON, B7_BUTTON, B8_BUTTON;
-    @FXML
-    public Button C1_BUTTON, C2_BUTTON, C3_BUTTON, C4_BUTTON, C5_BUTTON, C6_BUTTON, C7_BUTTON, C8_BUTTON;
-    @FXML
-    public Button D1_BUTTON, D2_BUTTON, D3_BUTTON, D4_BUTTON, D5_BUTTON, D6_BUTTON, D7_BUTTON, D8_BUTTON;
-    @FXML
-    public Button E1_BUTTON, E2_BUTTON, E3_BUTTON, E4_BUTTON, E5_BUTTON, E6_BUTTON, E7_BUTTON, E8_BUTTON;
-    @FXML
-    public Button F1_BUTTON, F2_BUTTON, F3_BUTTON, F4_BUTTON, F5_BUTTON, F6_BUTTON, F7_BUTTON, F8_BUTTON;
-    @FXML
-    public Button G1_BUTTON, G2_BUTTON, G3_BUTTON, G4_BUTTON, G5_BUTTON, G6_BUTTON, G7_BUTTON, G8_BUTTON;
-    @FXML
-    public Button H1_BUTTON, H2_BUTTON, H3_BUTTON, H4_BUTTON, H5_BUTTON, H6_BUTTON, H7_BUTTON, H8_BUTTON;
-    /* Code smell: inconsistent variable naming practice
-     * snake_case instead of camelCase
-     * */
     public Text redScore;
     public Text greenScore;
     public Text redTurn;
     public Text greenTurn;
     public AnchorPane root;
+    private GridPane buttonGrid = new GridPane();
+
     Tales[][] tales = new Tales[grid][grid];
     Player currentPlayer = Player.getPlayer();
 
@@ -55,6 +43,29 @@ public class MainWindow implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Инициализация сетки кнопок
+        buttonGrid.setHgap(spacing);
+        buttonGrid.setVgap(spacing);
+
+        for (int i = 0; i < grid; i++) {
+            for (int j = 0; j < grid; j++) {
+                Button button = new Button();
+                button.setMinSize(buttonSize, buttonSize);
+                button.setOnAction(this::place_a_chip);
+
+                // Добавляем кнопку в GridPane
+                buttonGrid.add(button, j, i);
+
+                // Создаем экземпляр Tale для кнопки
+                tales[i][j] = whiteTalesFactory.newTale(button);
+            }
+        }
+
+        // Размещаем сетку в корневом AnchorPane
+        root.getChildren().add(buttonGrid);
+        AnchorPane.setTopAnchor(buttonGrid, 60.0);
+        AnchorPane.setLeftAnchor(buttonGrid, 115.0);
+
         restartGame();
     }
 
@@ -67,22 +78,22 @@ public class MainWindow implements Initializable {
     }
 
     public void place_a_chip(ActionEvent event) {
-        Button pressed_button = (Button) event.getSource();
-        char[] arr = event.getSource().toString().substring(10, event.getSource().toString().length() - 29).toCharArray();
-        /* Code smell: Hardcoded integers */
-        int column = convertUppercaseLetterToInt(arr[0]);
-        int row = convertCharNumberToInt(arr[1]);
+        Button pressedButton = (Button) event.getSource();
+        // Получаем координаты на основе позиции в сетке
+        Integer column = GridPane.getRowIndex(pressedButton);
+        Integer row = GridPane.getColumnIndex(pressedButton);
+
+        if (column == null || row == null) return;
 
         Moves captureChips = new CaptureChips();
         List<List<Integer>> listOfChanges = captureChips.checkDirections(column, row, tales, grid - 1);
 
         coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
         ((WhiteTale) tales[column][row]).setDisable(true);
-        tales[column][row] = coloredTalesFactory.newTale(pressed_button);
+        tales[column][row] = coloredTalesFactory.newTale(pressedButton);
 
-        for (int i = 0; i < listOfChanges.size(); i++) {
-            System.out.println(listOfChanges.get(i).get(0) + " - " + listOfChanges.get(i).get(1) + " (" + listOfChanges.size() + "/" + listOfChanges.get(i).size() + ")");
-            tales[listOfChanges.get(i).get(0)][listOfChanges.get(i).get(1)].setColor();
+        for (List<Integer> change : listOfChanges) {
+            tales[change.get(0)][change.get(1)].setColor();
         }
         changePlayer();
         showPossibleMoves(possibleMoves, false);
@@ -103,12 +114,10 @@ public class MainWindow implements Initializable {
             }
         }
         if (!hasMove) {
-            /* Code smell: redudant equality*/
             if (pass) {
                 gameOver();
             } else {
                 changePlayer();
-                System.out.println("MainWindow -> showPossibleMoves -> !hasMove");
                 showPossibleMoves(possibleMoves, true);
             }
         }
@@ -129,7 +138,6 @@ public class MainWindow implements Initializable {
 
     private void gameOver() {
         redTurn.setVisible(true);
-        ;
         greenTurn.setVisible(true);
         if (Integer.parseInt(redScore.getText()) > Integer.parseInt(greenScore.getText())) {
             redTurn.setText("WINNER");
@@ -141,29 +149,21 @@ public class MainWindow implements Initializable {
             greenTurn.setText("WINNER");
             redTurn.setText(":(");
         }
-        try {
-            Thread.currentThread().interrupt();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void restartGame() {
         for (int i = 0; i < grid; i++) {
             for (int j = 0; j < grid; j++) {
-                String buttonId = "#" + ((char) ((int) i + 65)) + (j + 1) + "_BUTTON";
-                Button button = (Button) root.lookup(buttonId);
-                tales[i][j] = whiteTalesFactory.newTale(button);
+                tales[i][j] = whiteTalesFactory.newTale((Button) buttonGrid.getChildren().get(i * grid + j));
             }
         }
         coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
-        tales[4][3] = coloredTalesFactory.newTale(E4_BUTTON);
-        tales[3][4] = coloredTalesFactory.newTale(D5_BUTTON);
+        tales[4][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * grid + 3));
+        tales[3][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * grid + 4));
         changePlayer();
         coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
-        tales[3][3] = coloredTalesFactory.newTale(D4_BUTTON);
-        tales[4][4] = coloredTalesFactory.newTale(E5_BUTTON);
+        tales[3][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * grid + 3));
+        tales[4][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * grid + 4));
 
         score();
         showPossibleMoves(possibleMoves, false);
