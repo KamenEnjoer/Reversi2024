@@ -1,12 +1,12 @@
 package com.example.reversi;
 
-import com.example.reversi.talesFactory.Tales;
 import javafx.scene.text.Text;
 
 import java.util.Objects;
 
 public class Player {
     private static Player player;
+    // Code smell: String of color, when enum is better suited
     String color;
 
     private Player() {
@@ -26,8 +26,7 @@ public class Player {
             red.setVisible(false);
             green.setVisible(true);
             green.setText("GREEN TURN");
-        }
-        else {
+        } else {
             color = "red";
             red.setVisible(true);
             green.setVisible(false);
@@ -35,7 +34,7 @@ public class Player {
         }
     }
 
-    public String getColor(){
+    public String getColor() {
         return color;
     }
 
