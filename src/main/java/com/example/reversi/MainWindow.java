@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
 
 public class MainWindow implements Initializable {
     final int grid = 8;
-    final int buttonSize = 50;  // Размер кнопки, можно изменить по необходимости
-    final int spacing = 4;      // Расстояние между кнопками
+    final int buttonSize = 50;
+    final int spacing = 4;
 
     @FXML
     public Text redScore;
@@ -43,7 +43,6 @@ public class MainWindow implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Инициализация сетки кнопок
         buttonGrid.setHgap(spacing);
         buttonGrid.setVgap(spacing);
 
@@ -53,10 +52,8 @@ public class MainWindow implements Initializable {
                 button.setMinSize(buttonSize, buttonSize);
                 button.setOnAction(this::place_a_chip);
 
-                // Добавляем кнопку в GridPane
                 buttonGrid.add(button, j, i);
 
-                // Создаем экземпляр Tale для кнопки
                 tales[i][j] = whiteTalesFactory.newTale(button);
             }
         }
@@ -69,17 +66,8 @@ public class MainWindow implements Initializable {
         restartGame();
     }
 
-    public int convertUppercaseLetterToInt(char character) {
-        return (int) character - (int) 'A';
-    }
-
-    public int convertCharNumberToInt(char character) {
-        return (int) character - (int) '1';
-    }
-
     public void place_a_chip(ActionEvent event) {
         Button pressedButton = (Button) event.getSource();
-        // Получаем координаты на основе позиции в сетке
         Integer column = GridPane.getRowIndex(pressedButton);
         Integer row = GridPane.getColumnIndex(pressedButton);
 
