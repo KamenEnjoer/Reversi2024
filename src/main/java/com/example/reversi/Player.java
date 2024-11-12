@@ -1,16 +1,12 @@
 package com.example.reversi;
 
-import javafx.scene.text.Text;
-
-import java.util.Objects;
-
 public class Player {
     private static Player player;
     // Code smell: String of color, when enum is better suited
-    String color;
+    PlayerColor color;
 
     private Player() {
-        this.color = "green";
+        this.color = PlayerColor.GREEN;
     }
 
     public static Player getPlayer() {
@@ -20,26 +16,20 @@ public class Player {
         return player;
     }
 
-    public void changePlayer(Text red, Text green) {
-        if (Objects.equals(color, "red")) {
-            color = "green";
-            red.setVisible(false);
-            green.setVisible(true);
-            green.setText("GREEN TURN");
+    public void changePlayer() {
+        if (color == PlayerColor.RED) {
+            color = PlayerColor.GREEN;
         } else {
-            color = "red";
-            red.setVisible(true);
-            green.setVisible(false);
-            red.setText("RED TURN");
+            color = PlayerColor.RED;
         }
     }
 
-    public String getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
-    public Object getEnemyColor() {
-        if (Objects.equals(color, "red")) return "green";
-        else return "red";
+    public PlayerColor getEnemyColor() {
+        if (color == PlayerColor.RED) return PlayerColor.GREEN;
+        else return PlayerColor.RED;
     }
 }

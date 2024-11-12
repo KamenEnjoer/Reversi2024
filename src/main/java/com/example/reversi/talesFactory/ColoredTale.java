@@ -11,19 +11,14 @@ public class ColoredTale implements Tales {
      * but they should depend on abstractions.
      * */
     Button button;
-    int c, r;
 
     /*
-     * Violation of Naming Conventions (c and r)
-     * Violation of SOLID Single Responsibility:
-     * It is responsible for both UI and logic
+     * Code smell: Redudant c, r variables
      * */
-    public ColoredTale(Button button, int c, int r, String color) {
+    public ColoredTale(Button button, String color) {
         button.setStyle("-fx-background-color: " + color);
         button.setDisable(true);
         this.button = button;
-        this.c = c;
-        this.r = r;
     }
 
     @Override
@@ -34,6 +29,6 @@ public class ColoredTale implements Tales {
     @Override
     public void setColor() {
         Player currentPlayer = Player.getPlayer();
-        button.setStyle("-fx-background-color: " + currentPlayer.getColor());
+        button.setStyle("-fx-background-color: " + currentPlayer.getColor().toString().toLowerCase());
     }
 }

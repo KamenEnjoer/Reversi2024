@@ -1,16 +1,15 @@
 package com.example.reversi.talesFactory;
 
 import com.example.reversi.Player;
-import com.example.reversi.talesFactory.WhiteTale;
+import com.example.reversi.PlayerColor;
 import javafx.scene.control.Button;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class WhiteTaleTest extends ApplicationTest {
 
@@ -22,7 +21,7 @@ class WhiteTaleTest extends ApplicationTest {
         // Mocking the Button since WhiteTale directly interacts with it
         mockButton = new Button();
         // Initialize WhiteTale with mock Button
-        whiteTale = new WhiteTale(mockButton, 0, 0);
+        whiteTale = new WhiteTale(mockButton);
     }
 
     @Test
@@ -52,7 +51,7 @@ class WhiteTaleTest extends ApplicationTest {
     void testSetColorUpdatesButtonColor() {
         // Arrange: Mock Player color retrieval
         Player mockPlayer = mock(Player.class);
-        when(mockPlayer.getColor()).thenReturn("blue");
+        when(mockPlayer.getColor()).thenReturn(PlayerColor.RED);
 
         // Act: Call setColor() to update the button style
         whiteTale.setColor();

@@ -1,22 +1,15 @@
 package com.example.reversi;
 
-import com.example.reversi.moves.CaptureChips;
-import com.example.reversi.moves.Moves;
 import com.example.reversi.talesFactory.Tales;
-import com.example.reversi.talesFactory.WhiteTalesFactory;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class MainWindowTest extends ApplicationTest {
 
@@ -38,10 +31,10 @@ class MainWindowTest extends ApplicationTest {
         redTurnMock = mock(Text.class);
         greenTurnMock = mock(Text.class);
 
-        mainWindow.red_score = redScoreMock;
-        mainWindow.green_score = greenScoreMock;
-        mainWindow.red_turn = redTurnMock;
-        mainWindow.green_turn = greenTurnMock;
+        mainWindow.redScore = redScoreMock;
+        mainWindow.greenScore = greenScoreMock;
+        mainWindow.redTurn = redTurnMock;
+        mainWindow.greenTurn = greenTurnMock;
 
         // Mock the `tales` array initialization
         mainWindow.tales = new Tales[8][8];

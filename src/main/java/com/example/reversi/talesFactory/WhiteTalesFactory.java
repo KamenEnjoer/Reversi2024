@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 
 public class WhiteTalesFactory extends TalesFactory {
     @Override
-    public Tales newTale(Button button, int c, int r) {
-        return new WhiteTale(button, c, r);
+    public Tales newTale(Button button) {
+        return new WhiteTale(button);
     }
 }

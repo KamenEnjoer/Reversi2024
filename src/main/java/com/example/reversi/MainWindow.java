@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-/* Violation of SOLID: Single Responsibility: handles both game logic AND UI.
- * Code smell: Large class */
 public class MainWindow implements Initializable {
     final int grid = 8;
     @FXML
@@ -43,17 +41,12 @@ public class MainWindow implements Initializable {
     /* Code smell: inconsistent variable naming practice
      * snake_case instead of camelCase
      * */
-    public Text red_score;
-    public Text green_score;
-    public Text red_turn;
-    public Text green_turn;
+    public Text redScore;
+    public Text greenScore;
+    public Text redTurn;
+    public Text greenTurn;
     public AnchorPane root;
-    /* Violation of OOD: Encapsulation
-     * Bundling data with methods that operate on the data,
-     * restricting direct access to some components and protecting object integrity. */
     Tales[][] tales = new Tales[grid][grid];
-    /* Code smell: static player
-     * */
     Player currentPlayer = Player.getPlayer();
 
     TalesFactory whiteTalesFactory = new WhiteTalesFactory();
@@ -65,27 +58,33 @@ public class MainWindow implements Initializable {
         restartGame();
     }
 
+    public int convertUppercaseLetterToInt(char character) {
+        return (int) character - (int) 'A';
+    }
+
+    public int convertCharNumberToInt(char character) {
+        return (int) character - (int) '1';
+    }
+
     public void place_a_chip(ActionEvent event) {
         Button pressed_button = (Button) event.getSource();
         char[] arr = event.getSource().toString().substring(10, event.getSource().toString().length() - 29).toCharArray();
-        int c = (int) arr[0];
-        int r = (int) arr[1];
         /* Code smell: Hardcoded integers */
-        c -= 65;
-        r -= 49;
+        int column = convertUppercaseLetterToInt(arr[0]);
+        int row = convertCharNumberToInt(arr[1]);
 
         Moves captureChips = new CaptureChips();
-        List<List<Integer>> listOfChanges = captureChips.checkDirections(c, r, tales, grid - 1);
+        List<List<Integer>> listOfChanges = captureChips.checkDirections(column, row, tales, grid - 1);
 
-        coloredTalesFactory.setColor(currentPlayer.getColor());
-        ((WhiteTale) tales[c][r]).setDisable(true);
-        tales[c][r] = coloredTalesFactory.newTale(pressed_button, c, r);
+        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
+        ((WhiteTale) tales[column][row]).setDisable(true);
+        tales[column][row] = coloredTalesFactory.newTale(pressed_button);
 
         for (int i = 0; i < listOfChanges.size(); i++) {
             System.out.println(listOfChanges.get(i).get(0) + " - " + listOfChanges.get(i).get(1) + " (" + listOfChanges.size() + "/" + listOfChanges.get(i).size() + ")");
             tales[listOfChanges.get(i).get(0)][listOfChanges.get(i).get(1)].setColor();
         }
-        currentPlayer.changePlayer(red_turn, green_turn);
+        changePlayer();
         showPossibleMoves(possibleMoves, false);
         score();
     }
@@ -104,10 +103,11 @@ public class MainWindow implements Initializable {
             }
         }
         if (!hasMove) {
-            if (pass == true) {
+            /* Code smell: redudant equality*/
+            if (pass) {
                 gameOver();
             } else {
-                currentPlayer.changePlayer(red_turn, green_turn);
+                changePlayer();
                 System.out.println("MainWindow -> showPossibleMoves -> !hasMove");
                 showPossibleMoves(possibleMoves, true);
             }
@@ -122,24 +122,24 @@ public class MainWindow implements Initializable {
                 else if (Objects.equals(tales[i][j].getColor(), "green")) green++;
             }
         }
-        red_score.setText(String.valueOf(red));
-        green_score.setText(String.valueOf(green));
+        redScore.setText(String.valueOf(red));
+        greenScore.setText(String.valueOf(green));
         if (red + green == grid * grid) gameOver();
     }
 
     private void gameOver() {
-        red_turn.setVisible(true);
+        redTurn.setVisible(true);
         ;
-        green_turn.setVisible(true);
-        if (Integer.parseInt(red_score.getText()) > Integer.parseInt(green_score.getText())) {
-            red_turn.setText("WINNER");
-            green_turn.setText(":(");
-        } else if (Integer.parseInt(red_score.getText()) == Integer.parseInt(green_score.getText())) {
-            red_turn.setText("DRAW");
-            green_turn.setText("DRAW");
+        greenTurn.setVisible(true);
+        if (Integer.parseInt(redScore.getText()) > Integer.parseInt(greenScore.getText())) {
+            redTurn.setText("WINNER");
+            greenTurn.setText(":(");
+        } else if (Integer.parseInt(redScore.getText()) == Integer.parseInt(greenScore.getText())) {
+            redTurn.setText("DRAW");
+            greenTurn.setText("DRAW");
         } else {
-            green_turn.setText("WINNER");
-            red_turn.setText(":(");
+            greenTurn.setText("WINNER");
+            redTurn.setText(":(");
         }
         try {
             Thread.currentThread().interrupt();
@@ -154,17 +154,31 @@ public class MainWindow implements Initializable {
             for (int j = 0; j < grid; j++) {
                 String buttonId = "#" + ((char) ((int) i + 65)) + (j + 1) + "_BUTTON";
                 Button button = (Button) root.lookup(buttonId);
-                tales[i][j] = whiteTalesFactory.newTale(button, i, j);
+                tales[i][j] = whiteTalesFactory.newTale(button);
             }
         }
-        coloredTalesFactory.setColor(currentPlayer.getColor());
-        tales[4][3] = coloredTalesFactory.newTale(E4_BUTTON, 4, 3);
-        tales[3][4] = coloredTalesFactory.newTale(D5_BUTTON, 3, 4);
-        currentPlayer.changePlayer(red_turn, green_turn);
-        coloredTalesFactory.setColor(currentPlayer.getColor());
-        tales[3][3] = coloredTalesFactory.newTale(D4_BUTTON, 3, 3);
-        tales[4][4] = coloredTalesFactory.newTale(E5_BUTTON, 4, 4);
+        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
+        tales[4][3] = coloredTalesFactory.newTale(E4_BUTTON);
+        tales[3][4] = coloredTalesFactory.newTale(D5_BUTTON);
+        changePlayer();
+        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
+        tales[3][3] = coloredTalesFactory.newTale(D4_BUTTON);
+        tales[4][4] = coloredTalesFactory.newTale(E5_BUTTON);
+
         score();
         showPossibleMoves(possibleMoves, false);
+    }
+
+    public void changePlayer() {
+        currentPlayer.changePlayer();
+        if (currentPlayer.getColor() == PlayerColor.GREEN) {
+            redTurn.setVisible(false);
+            greenTurn.setVisible(true);
+            greenTurn.setText("GREEN TURN");
+        } else {
+            redTurn.setVisible(true);
+            greenTurn.setVisible(false);
+            redTurn.setText("RED TURN");
+        }
     }
 }

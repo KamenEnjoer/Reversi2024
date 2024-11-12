@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WhiteTalesFactoryTest extends ApplicationTest {
     private WhiteTalesFactory whiteTalesFactory;
@@ -25,7 +26,7 @@ class WhiteTalesFactoryTest extends ApplicationTest {
         int r = 0; // Example row index
 
         // When
-        Tales tale = whiteTalesFactory.newTale(mockButton, c, r);
+        Tales tale = whiteTalesFactory.newTale(mockButton);
 
         // Then
         assertNotNull(tale, "Tale should not be null");
