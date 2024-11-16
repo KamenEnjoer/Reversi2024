@@ -35,13 +35,9 @@ public class MainWindow implements Initializable {
 
     /* Code smell: Remove redundant button declarations */
     private GridPane buttonGrid = new GridPane();
-
     Tales[][] tales = new Tales[grid][grid];
-    Player currentPlayer = Player.getPlayer();
-
     TalesFactory whiteTalesFactory = new WhiteTalesFactory();
-    ColoredTalesFactory coloredTalesFactory = new ColoredTalesFactory("green");
-    Moves possibleMoves = new PossibleMoves();
+    GameManager gameManager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,64 +70,25 @@ public class MainWindow implements Initializable {
 
         if (column == null || row == null) return;
 
-        Moves captureChips = new CaptureChips();
-        List<List<Integer>> listOfChanges = captureChips.checkDirections(column, row, tales, grid - 1);
+        gameManager.placeAChip(row, column, pressedButton);
 
-        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
-        ((WhiteTale) tales[column][row]).setDisable(true);
-        tales[column][row] = coloredTalesFactory.newTale(pressedButton);
-
-        for (List<Integer> change : listOfChanges) {
-            tales[change.get(0)][change.get(1)].setColor();
-        }
         changePlayer();
-        showPossibleMoves(possibleMoves, false);
         score();
-    }
-
-    private void showPossibleMoves(Moves possibleMoves, boolean pass) {
-        boolean hasMove = false;
-        for (int i = 0; i < grid; i++) {
-            for (int j = 0; j < grid; j++) {
-                if (Objects.equals(tales[i][j].getColor(), "white")) {
-                    ((WhiteTale) tales[i][j]).setDisable(true);
-                    if (possibleMoves.checkDirections(i, j, tales, grid - 1) != null) {
-                        ((WhiteTale) tales[i][j]).setDisable(false);
-                        hasMove = true;
-                    }
-                }
-            }
-        }
-        if (!hasMove) {
-            if (pass) {
-                gameOver();
-            } else {
-                changePlayer();
-                showPossibleMoves(possibleMoves, true);
-            }
-        }
+        if(gameManager.getGameStatus() != GameStatus.ONGOING) gameOver();
     }
 
     public void score() {
-        int red = 0, green = 0;
-        for (int i = 0; i < grid; i++) {
-            for (int j = 0; j < grid; j++) {
-                if (Objects.equals(tales[i][j].getColor(), "red")) red++;
-                else if (Objects.equals(tales[i][j].getColor(), "green")) green++;
-            }
-        }
-        redScore.setText(String.valueOf(red));
-        greenScore.setText(String.valueOf(green));
-        if (red + green == grid * grid) gameOver();
+        redScore.setText(String.valueOf(gameManager.getGreenScore()));
+        greenScore.setText(String.valueOf(gameManager.getRedScore()));
     }
 
     private void gameOver() {
         redTurn.setVisible(true);
         greenTurn.setVisible(true);
-        if (Integer.parseInt(redScore.getText()) > Integer.parseInt(greenScore.getText())) {
+        if (gameManager.getGameStatus() == GameStatus.RED) {
             redTurn.setText("WINNER");
             greenTurn.setText(":(");
-        } else if (Integer.parseInt(redScore.getText()) == Integer.parseInt(greenScore.getText())) {
+        } else if (gameManager.getGameStatus() == GameStatus.DRAW) {
             redTurn.setText("DRAW");
             greenTurn.setText("DRAW");
         } else {
@@ -146,21 +103,13 @@ public class MainWindow implements Initializable {
                 tales[i][j] = whiteTalesFactory.newTale((Button) buttonGrid.getChildren().get(i * grid + j));
             }
         }
-        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
-        tales[4][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * grid + 3));
-        tales[3][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * grid + 4));
-        changePlayer();
-        coloredTalesFactory.setColor(currentPlayer.getColor().toString().toLowerCase());
-        tales[3][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * grid + 3));
-        tales[4][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * grid + 4));
-
+        gameManager = new GameManager(tales, 8, buttonGrid);
         score();
-        showPossibleMoves(possibleMoves, false);
     }
 
     public void changePlayer() {
-        currentPlayer.changePlayer();
-        if (currentPlayer.getColor() == PlayerColor.GREEN) {
+        Player player = gameManager.getPlayer();
+        if (player.getColor() == PlayerColor.GREEN) {
             redTurn.setVisible(false);
             greenTurn.setVisible(true);
             greenTurn.setText("GREEN TURN");

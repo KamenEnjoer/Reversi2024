@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="341bb116-5c74-4bfd-a658-8729505e696e" name="Changes" comment="Cleaning">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/BoardManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/ColoredTale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/ColoredTale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/Tales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/Tales.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/WhiteTale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/WhiteTale.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,18 +27,19 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "KamenEnjoer"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KamenEnjoer&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -45,12 +55,12 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2okcHuxjNQ73m08MFbui1yPEMNP" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -62,13 +72,36 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "refactor",
-    "last_opened_file_path": "D:/Desktop/demo2"
+    "last_opened_file_path": "D:/Desktop/demo2",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.reversi" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainStart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.reversi.MainStart" />
+      <module name="REVERSI_TWO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.reversi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainStart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -95,12 +128,44 @@
       <option name="project" value="LOCAL" />
       <updated>1731417970106</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Cleaning">
+      <option name="closed" value="true" />
+      <created>1731422414176</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731422414176</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Изменены кнопки на инициализацию через код" />
+    <MESSAGE value="refactor naming, add enum, extract logic into separate functions" />
     <MESSAGE value="Cleaning" />
     <option name="LAST_COMMIT_MESSAGE" value="Cleaning" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Reversi2024$CaptureChipsTest_testCheckDirections_SimpleValidCapture.ic" NAME="CaptureChipsTest.testCheckDirections_SimpleValidCapture Coverage Results" MODIFIED="1731338176982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.reversi.moves.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$WhiteTaleTest.ic" NAME="WhiteTaleTest Coverage Results" MODIFIED="1731338584760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Reversi2024$java_in_REVERSI_TWO.ic" NAME="java in REVERSI_TWO Coverage Results" MODIFIED="1731340967687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <EXCLUDED_FILTER>com.example.reversi.MainStart</EXCLUDED_FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$CaptureChipsTest.ic" NAME="CaptureChipsTest Coverage Results" MODIFIED="1731338001994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.reversi.moves.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$moves_in_REVERSI_TWO.ic" NAME="moves in REVERSI_TWO Coverage Results" MODIFIED="1731338283072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Reversi2024$CalculatorTest.exec" NAME="CalculatorTest Coverage Results" MODIFIED="1731336162459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.reversi.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$CalculatorTest.ic" NAME="CalculatorTest Coverage Results" MODIFIED="1731336481550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.reversi.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$WhiteTaleTest__1_.ic" NAME="WhiteTaleTest (1) Coverage Results" MODIFIED="1731338763820" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.reversi.talesFactory.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Reversi2024$reversi_in_REVERSI_TWO.ic" NAME="reversi in REVERSI_TWO Coverage Results" MODIFIED="1731339813179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

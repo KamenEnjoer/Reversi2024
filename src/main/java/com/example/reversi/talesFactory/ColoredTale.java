@@ -27,8 +27,7 @@ public class ColoredTale implements Tales {
     }
 
     @Override
-    public void setColor() {
-        Player currentPlayer = Player.getPlayer();
-        button.setStyle("-fx-background-color: " + currentPlayer.getColor().toString().toLowerCase());
+    public void setColor(Player player) {
+        button.setStyle("-fx-background-color: " + player.getColor().toString().toLowerCase());
     }
 }

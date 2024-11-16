@@ -1,19 +1,11 @@
 package com.example.reversi;
 
 public class Player {
-    private static Player player;
     // Code smell: String of color, when enum is better suited
     PlayerColor color;
 
-    private Player() {
+    public Player() {
         this.color = PlayerColor.GREEN;
-    }
-
-    public static Player getPlayer() {
-        if (player == null) {
-            player = new Player();
-        }
-        return player;
     }
 
     public void changePlayer() {
