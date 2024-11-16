@@ -1,12 +1,7 @@
 package com.example.reversi;
 
-import com.example.reversi.moves.CaptureChips;
-import com.example.reversi.moves.Moves;
-import com.example.reversi.moves.PossibleMoves;
-import com.example.reversi.talesFactory.ColoredTalesFactory;
 import com.example.reversi.talesFactory.Tales;
 import com.example.reversi.talesFactory.TalesFactory;
-import com.example.reversi.talesFactory.WhiteTale;
 import com.example.reversi.talesFactory.WhiteTalesFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,15 +12,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+/* SOLID violation: Single Responsibility: handles UI and logic
+* */
 public class MainWindow implements Initializable {
     final int grid = 8;
     final int buttonSize = 50;
     final int spacing = 4;
-
+    /* Code smell: inconsistent variable naming practice
+     * snake_case instead of camelCase
+     * */
     @FXML
     public Text redScore;
     public Text greenScore;
@@ -78,8 +75,8 @@ public class MainWindow implements Initializable {
     }
 
     public void score() {
-        redScore.setText(String.valueOf(gameManager.getGreenScore()));
-        greenScore.setText(String.valueOf(gameManager.getRedScore()));
+        redScore.setText(String.valueOf(gameManager.getRedScore()));
+        greenScore.setText(String.valueOf(gameManager.getGreenScore()));
     }
 
     private void gameOver() {

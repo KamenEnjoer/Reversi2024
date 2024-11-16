@@ -5,7 +5,9 @@ import com.example.reversi.moves.Moves;
 import com.example.reversi.moves.PossibleMoves;
 import com.example.reversi.talesFactory.ColoredTalesFactory;
 import com.example.reversi.talesFactory.Tales;
+import com.example.reversi.talesFactory.TalesFactory;
 import com.example.reversi.talesFactory.WhiteTale;
+import com.example.reversi.talesFactory.WhiteTalesFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class GameManager {
-    private Tales[][] tales;
+    private final Tales[][] tales;
     private final int gridSize;
     private final ColoredTalesFactory coloredTalesFactory;
     private final Player player;
@@ -24,17 +26,17 @@ public class GameManager {
     private int greenScore;
 
     public GameManager(Tales[][] tales, int gridSize, GridPane buttonGrid) {
+        this.player = new Player();
         this.tales = tales;
-        this.captureChips = new CaptureChips();
+        this.captureChips = new CaptureChips(player);
         this.gridSize = gridSize;
         this.coloredTalesFactory = new ColoredTalesFactory("green");
-        this.player = new Player();
-        this.movesCalculator = new PossibleMoves();
+        this.movesCalculator = new PossibleMoves(player);
         this.gameStatus = GameStatus.ONGOING;
         coloredTalesFactory.setColor(player.getColor().toString().toLowerCase());
         tales[4][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * gridSize + 3));
         tales[3][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * gridSize + 4));
-        player.changePlayer();
+        player.switchColor();
         coloredTalesFactory.setColor(player.getColor().toString().toLowerCase());
         tales[3][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * gridSize + 3));
         tales[4][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * gridSize + 4));
@@ -43,7 +45,7 @@ public class GameManager {
     }
 
     public void placeAChip(int row, int column, Button pressedButton) {
-        List<List<Integer>> listOfChanges = captureChips.checkDirections(column, row, tales, gridSize - 1, player);
+        List<List<Integer>> listOfChanges = captureChips.checkDirections(column, row, tales, gridSize - 1);
 
         coloredTalesFactory.setColor(player.getColor().toString().toLowerCase());
         ((WhiteTale) tales[column][row]).setDisable(true);
@@ -52,7 +54,7 @@ public class GameManager {
         for (List<Integer> change : listOfChanges) {
             tales[change.get(0)][change.get(1)].setColor(player);
         }
-        player.changePlayer();
+        player.switchColor();
         showPossibleMoves(false);
         calculateScore();
     }
@@ -75,7 +77,7 @@ public class GameManager {
             for (int j = 0; j < gridSize; j++) {
                 if (Objects.equals(tales[i][j].getColor(), "white")) {
                     ((WhiteTale) tales[i][j]).setDisable(true);
-                    if (movesCalculator.checkDirections(i, j, tales, gridSize - 1, player) != null) {
+                    if (movesCalculator.checkDirections(i, j, tales, gridSize - 1) != null) {
                         ((WhiteTale) tales[i][j]).setDisable(false);
                         hasMove = true;
                     }
@@ -108,7 +110,7 @@ public class GameManager {
                     gameStatus = GameStatus.DRAW;
                 }
             } else {
-                player.changePlayer();
+                player.switchColor();
                 showPossibleMoves(true);
             }
         }

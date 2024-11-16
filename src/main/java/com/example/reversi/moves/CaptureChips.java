@@ -8,16 +8,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class CaptureChips implements Moves {
+    private Player player;
+
+    public CaptureChips(Player player) {
+        this.player = player;
+    }
+
     /* Code smell: High cyclomatic complexity */
+    /* Code smell: c, r naming */
     @Override
-    public List<List<Integer>> checkDirections(int column, int row, Tales[][] tales, int grid, Player player) {
+    public List<List<Integer>> checkDirections(int column, int row, Tales[][] tales, int grid) {
         List<List<Integer>> listOfChanges = new ArrayList<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i != 0 || j != 0) {
                     if (outOfBoundsWithDirection(row, column, j, i, grid)) continue;
-                    if (canMove(column + i, row + j, i, j, tales, grid, player) != null) {
-                        listOfChanges.addAll(canMove(column + i, row + j, i, j, tales, grid, player));
+                    if (canMove(column + i, row + j, i, j, tales, grid) != null) {
+                        listOfChanges.addAll(canMove(column + i, row + j, i, j, tales, grid));
                     }
                 }
             }
@@ -26,13 +33,14 @@ public class CaptureChips implements Moves {
     }
 
     /* Code smell: High cyclomatic complexity */
+    /* Code smell: c, r, i, j naming */
     @Override
-    public List<List<Integer>> canMove(int column, int row, int directionColumn, int directionRow, Tales[][] tales, int grid, Player player) {
+    public List<List<Integer>> canMove(int column, int row, int directionColumn, int directionRow, Tales[][] tales, int grid) {
         String currentPlayerColor = player.getColor().toString().toLowerCase();
         String enemyPlayerColor = player.getEnemyColor().toString().toLowerCase();
         List<List<Integer>> listOfChanges = new ArrayList<>();
         if (outOfBounds(row, column, directionColumn, directionRow, grid) && Objects.equals(tales[column][row].getColor(), enemyPlayerColor)) {
-            listOfChanges = canMove(column + directionColumn, row + directionRow, directionColumn, directionRow, tales, grid, player);
+            listOfChanges = canMove(column + directionColumn, row + directionRow, directionColumn, directionRow, tales, grid);
             if (listOfChanges != null)
                 listOfChanges.add(List.of(column, row));
             return listOfChanges;

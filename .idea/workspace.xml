@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="341bb116-5c74-4bfd-a658-8729505e696e" name="Changes" comment="Cleaning">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="341bb116-5c74-4bfd-a658-8729505e696e" name="Changes" comment="Refactor MainWindow to SOLID, so CBO could be less for MainWindow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/PlayerColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/PlayerColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/ColoredTale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/ColoredTale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/Tales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/Tales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/WhiteTale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/talesFactory/WhiteTale.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,14 +132,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731422414176</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactor MainWindow to SOLID, so CBO could be less for MainWindow">
+      <option name="closed" value="true" />
+      <created>1731778569601</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731778569601</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Изменены кнопки на инициализацию через код" />
     <MESSAGE value="refactor naming, add enum, extract logic into separate functions" />
     <MESSAGE value="Cleaning" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaning" />
+    <MESSAGE value="Refactor MainWindow to SOLID, so CBO could be less for MainWindow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor MainWindow to SOLID, so CBO could be less for MainWindow" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reversi2024$CaptureChipsTest_testCheckDirections_SimpleValidCapture.ic" NAME="CaptureChipsTest.testCheckDirections_SimpleValidCapture Coverage Results" MODIFIED="1731338176982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

@@ -1,19 +1,20 @@
 package com.example.reversi;
 
+/* Code smell: global state of static Player that introduces hidden coupling
+* */
 public class Player {
-    // Code smell: String of color, when enum is better suited
-    PlayerColor color;
+    private PlayerColor color;
 
-    public Player() {
-        this.color = PlayerColor.GREEN;
+    public Player(PlayerColor initialColor) {
+        this.color = initialColor;
     }
 
-    public void changePlayer() {
-        if (color == PlayerColor.RED) {
-            color = PlayerColor.GREEN;
-        } else {
-            color = PlayerColor.RED;
-        }
+    public Player() {
+        this(PlayerColor.GREEN);
+    }
+
+    public void switchColor() {
+        color = color.getEnemyColor();
     }
 
     public PlayerColor getColor() {
@@ -21,7 +22,6 @@ public class Player {
     }
 
     public PlayerColor getEnemyColor() {
-        if (color == PlayerColor.RED) return PlayerColor.GREEN;
-        else return PlayerColor.RED;
+        return color.getEnemyColor();
     }
 }
