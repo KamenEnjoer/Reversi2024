@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="341bb116-5c74-4bfd-a658-8729505e696e" name="Changes" comment="Refactor MainWindow to SOLID, so CBO could be less for MainWindow">
+    <list default="true" id="341bb116-5c74-4bfd-a658-8729505e696e" name="Changes" comment="Refactor Player class and add comments that were deleted">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/ColorComparison.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/MoveValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/PlayerColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/PlayerColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/CaptureChips.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/Moves.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/reversi/moves/PossibleMoves.java" afterDir="false" />
@@ -22,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -63,17 +62,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor",
-    "last_opened_file_path": "D:/Desktop/demo2",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Desktop/demo2&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.reversi" />
@@ -140,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731778569601</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Refactor Player class and add comments that were deleted">
+      <option name="closed" value="true" />
+      <created>1731780546942</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731780546942</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -148,7 +155,8 @@
     <MESSAGE value="refactor naming, add enum, extract logic into separate functions" />
     <MESSAGE value="Cleaning" />
     <MESSAGE value="Refactor MainWindow to SOLID, so CBO could be less for MainWindow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor MainWindow to SOLID, so CBO could be less for MainWindow" />
+    <MESSAGE value="Refactor Player class and add comments that were deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor Player class and add comments that were deleted" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reversi2024$CaptureChipsTest_testCheckDirections_SimpleValidCapture.ic" NAME="CaptureChipsTest.testCheckDirections_SimpleValidCapture Coverage Results" MODIFIED="1731338176982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

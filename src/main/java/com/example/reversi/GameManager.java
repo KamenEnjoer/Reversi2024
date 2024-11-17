@@ -1,6 +1,7 @@
 package com.example.reversi;
 
 import com.example.reversi.moves.CaptureChips;
+import com.example.reversi.moves.MoveValidator;
 import com.example.reversi.moves.Moves;
 import com.example.reversi.moves.PossibleMoves;
 import com.example.reversi.talesFactory.ColoredTalesFactory;
@@ -33,6 +34,10 @@ public class GameManager {
         this.coloredTalesFactory = new ColoredTalesFactory("green");
         this.movesCalculator = new PossibleMoves(player);
         this.gameStatus = GameStatus.ONGOING;
+        initInitialBoard(buttonGrid);
+    }
+
+    private void initInitialBoard(GridPane buttonGrid) {
         coloredTalesFactory.setColor(player.getColor().toString().toLowerCase());
         tales[4][3] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(4 * gridSize + 3));
         tales[3][4] = coloredTalesFactory.newTale((Button) buttonGrid.getChildren().get(3 * gridSize + 4));
