@@ -20,10 +20,10 @@ class PossibleMovesTest {
     @BeforeEach
     void setUp() {
         possibleMoves = new PossibleMoves();
-        grid = 7;  // Размер сетки 8x8 (индекс от 0 до 7)
+        grid = 7;  // Grid size is 8x8 (index from 0 to 7)
         tales = new Tales[8][8];
 
-        // Создаем моки для каждой клетки на доске
+        // Mock each cell
         for (int i = 0; i < tales.length; i++) {
             for (int j = 0; j < tales[i].length; j++) {
                 tales[i][j] = mock(Tales.class);
@@ -33,7 +33,7 @@ class PossibleMovesTest {
 
     @Test
     void testCheckDirections_NoMovePossible() {
-        // Мокируем Player с использованием MockedStatic
+        // Mock player with MockStatic
         try (MockedStatic<Player> playerMock = mockStatic(Player.class)) {
             Player mockPlayer = mock(Player.class);
             playerMock.when(Player::getPlayer).thenReturn(mockPlayer);
@@ -44,7 +44,7 @@ class PossibleMovesTest {
             when(tales[1][2].getColor()).thenReturn("red");
 
             List<List<Integer>> result = possibleMoves.checkDirections(1, 4, tales, grid);
-            assertNull(result, "Должен быть null, так как нет доступных ходов");
+            assertNull(result, "Has to be null, because there are no other available move");
         }
     }
 
@@ -60,8 +60,8 @@ class PossibleMovesTest {
             when(tales[3][4].getColor()).thenReturn("green");
 
             List<List<Integer>> result = possibleMoves.canMove(3, 4, 0, 1, tales, grid);
-            assertNotNull(result, "Ожидался доступный ход");
-            assertEquals(List.of(1, 1), result.get(0), "Ход должен быть возможен в данной позиции");
+            assertNotNull(result, "Expecting available move");
+            assertEquals(List.of(1, 1), result.get(0), "There should be move in this position");
         }
     }
 }
